@@ -10,7 +10,7 @@
     </style>
 </head>
 
-    <form>
+    <form id="formElem">
     <div>
         <H1><b>Страница-опросник для обладателей котиков </b></H1>
         <p> Введите кличку котика: </p> <br />
@@ -75,8 +75,26 @@
          accept="image/png, image/jpeg">
     </div>
  
-<p>Нажмите:<button>СОХРАНИТЬ</button></p>
+<p>Нажмите:<button id="postBtn">СОХРАНИТЬ</button></p>
 </form>
+<script>
+    postBtn.onclick=function(e){
+        e.preventDefault();
 
+       
+        fetch("https://httpbin.org/post",
+        {
+            method:'POST',
+            body:new FormData (formElem),
+
+        })
+        .then(response => response.json())
+        .then (user =>{console.log(user);
+        })
+        .catch(error =>console.log(error));
+    }
+    
+
+</script>
 </body>
 </html>
